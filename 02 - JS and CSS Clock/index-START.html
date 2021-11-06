@@ -1,74 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JS + CSS Clock</title>
-</head>
-<body>
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS + CSS Clock</title>
+  </head>
+  <body>
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
         <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
+        <div class="center"></div>
       </div>
     </div>
 
+    <style>
+      html {
+        background: #018ded url(https://unsplash.it/1500/1000?image=881&blur=5);
+        background-size: cover;
+        font-family: "helvetica neue";
+        text-align: center;
+        font-size: 10px;
+      }
 
-  <style>
-    html {
-      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
-      background-size: cover;
-      font-family: 'helvetica neue';
-      text-align: center;
-      font-size: 10px;
-    }
+      body {
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+      }
 
-    body {
-      margin: 0;
-      font-size: 2rem;
-      display: flex;
-      flex: 1;
-      min-height: 100vh;
-      align-items: center;
-    }
+      .clock {
+        width: 30rem;
+        height: 30rem;
+        border: 20px solid white;
+        border-radius: 50%;
+        margin: 50px auto;
+        position: relative;
+        padding: 2rem;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #efefef,
+          inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.6);
+      }
 
-    .clock {
-      width: 30rem;
-      height: 30rem;
-      border: 20px solid white;
-      border-radius: 50%;
-      margin: 50px auto;
-      position: relative;
-      padding: 2rem;
-      box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
-    }
+      .clock-face {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(
+          -3px
+        ); /* account for the height of the clock hands */
+      }
 
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
-    }
+      .hand {
+        width: 50%;
+        height: 6px;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform-origin: right center;
+        box-shadow: 0 0 0 0.1px #fff, 0 0 0 1px rgb(0 0 0 / 10%),
+          0 0 8px rgb(0 0 0 / 40%), 2px 5px 1px rgb(0 0 0 / 50%);
+      }
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: gray;
+      }
+      .hour-hand {
+        height: 10px;
+        width: 40%;
+        background-color: #fff;
+        border-radius: 4px 0 0 4px;
+        margin-top: -5px;
+      }
+      .min-hand {
+        height: 5px;
+        width: 45%;
+        background-color: #fff;
+        margin-top: -2.5px;
+      }
+      .second-hand {
+        height: 2px;
+        background: red;
+        margin-top: -1px;
+      }
+    </style>
 
-    .hand {
-      width: 50%;
-      height: 6px;
-      background: black;
-      position: absolute;
-      top: 50%;
-    }
+    <script>
+      let hourDom = document.querySelector(".clock-face .hour-hand");
+      let minuteDom = document.querySelector(".clock-face .min-hand");
+      let secondDom = document.querySelector(".clock-face .second-hand");
+      let time = new Date();
+      let hour = time.getHours();
+      let minute = time.getMinutes();
+      let second = time.getSeconds();
+      hour = hour > 12 ? hour - 12 : hour;
+      let secondDeg = (360 / 60) * second + 90;
+      let minuteDeg = (360 / 60) * minute + 90;
+      let hourDeg = (360 / 12) * hour + (360 / 12) * (minute / 60) + 90;
 
-  </style>
-
-  <script>
-
-
-  </script>
-</body>
+      hourDom.style.transform = ` rotate(${hourDeg}deg)`;
+      minuteDom.style.transform = `rotate(${minuteDeg}deg)`;
+      secondDom.style.transform = `rotate(${secondDeg}deg)`;
+    </script>
+  </body>
 </html>
