@@ -1,51 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Scoped CSS Variables and JS</title>
-</head>
-<body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scoped CSS Variables and JS</title>
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class="hl">JS</span></h2>
 
-  <div class="controls">
-    <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        id="spacing"
+        type="range"
+        name="spacing"
+        min="10"
+        max="200"
+        value="10"
+        data-sizing="px"
+      />
 
-    <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+      <label for="blur">Blur:</label>
+      <input
+        id="blur"
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="10"
+        data-sizing="px"
+      />
 
-    <label for="base">Base Color</label>
-    <input id="base" type="color" name="base" value="#ffc600">
-  </div>
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600" />
+    </div>
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
-
-  <style>
-
-    /*
+    <style>
+      /*
       misc styles, nothing to do with CSS variables
     */
+      img {
+        padding: 10px;
+        background-color: #ffc600;
+        filter: blur(10px);
+      }
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: "helvetica neue", sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
 
-    body {
-      text-align: center;
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
+      .controls {
+        margin-bottom: 50px;
+      }
 
-    .controls {
-      margin-bottom: 50px;
-    }
+      input {
+        width: 100px;
+      }
+    </style>
 
-    input {
-      width: 100px;
-    }
-  </style>
-
-  <script>
-  </script>
-
-</body>
+    <script>
+      let spaceDom = document.querySelector(".controls #spacing");
+      let blurDom = document.querySelector(".controls #blur");
+      let baseDom = document.querySelector(".controls #base");
+      let imgDom = document.querySelector("img");
+      spaceDom.addEventListener("change", (e) => {
+        imgDom.style.padding = e.target.value + "px";
+      });
+      blurDom.addEventListener("change", (e) => {
+        imgDom.style.filter = "blur(" + e.target.value + "px)";
+      });
+      baseDom.addEventListener("change", (e) => {
+        imgDom.style.backgroundColor = e.target.value;
+      });
+    </script>
+  </body>
 </html>

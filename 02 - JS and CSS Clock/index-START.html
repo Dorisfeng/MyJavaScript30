@@ -63,6 +63,7 @@
         transform-origin: right center;
         box-shadow: 0 0 0 0.1px #fff, 0 0 0 1px rgb(0 0 0 / 10%),
           0 0 8px rgb(0 0 0 / 40%), 2px 5px 1px rgb(0 0 0 / 50%);
+        transition: all 0.3s;
       }
       .center {
         position: absolute;
@@ -98,18 +99,21 @@
       let hourDom = document.querySelector(".clock-face .hour-hand");
       let minuteDom = document.querySelector(".clock-face .min-hand");
       let secondDom = document.querySelector(".clock-face .second-hand");
-      let time = new Date();
-      let hour = time.getHours();
-      let minute = time.getMinutes();
-      let second = time.getSeconds();
-      hour = hour > 12 ? hour - 12 : hour;
-      let secondDeg = (360 / 60) * second + 90;
-      let minuteDeg = (360 / 60) * minute + 90;
-      let hourDeg = (360 / 12) * hour + (360 / 12) * (minute / 60) + 90;
+      function clock() {
+        let time = new Date();
+        let hour = time.getHours();
+        let minute = time.getMinutes();
+        let second = time.getSeconds();
+        hour = hour > 12 ? hour - 12 : hour;
+        let secondDeg = (360 / 60) * second + 90;
+        let minuteDeg = (360 / 60) * minute + 90;
+        let hourDeg = (360 / 12) * hour + (360 / 12) * (minute / 60) + 90;
 
-      hourDom.style.transform = ` rotate(${hourDeg}deg)`;
-      minuteDom.style.transform = `rotate(${minuteDeg}deg)`;
-      secondDom.style.transform = `rotate(${secondDeg}deg)`;
+        hourDom.style.transform = ` rotate(${hourDeg}deg)`;
+        minuteDom.style.transform = `rotate(${minuteDeg}deg)`;
+        secondDom.style.transform = `rotate(${secondDeg}deg)`;
+      }
+      setInterval(clock, 1000);
     </script>
   </body>
 </html>
